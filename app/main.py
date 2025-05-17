@@ -1,4 +1,4 @@
-from aiogram import types, F, Router
+from aiogram import types, F, Router, Bot
 from aiogram.filters import Command
 import app.tg_config as cnfg
 from app.db import Database
@@ -9,7 +9,7 @@ from app.states import Req, Pag
 rt = Router()
 
 @rt.message(Command("start"))
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, bot: Bot):
     await message.answer_photo(caption=cnfg.main_menu_text, photo=types.FSInputFile("img/search_by_name.png"), reply_markup=cnfg.main_menu.as_markup(), parse_mode="Markdown")
     db = Database()
     if not db.is_user_exists(user_id=message.from_user.id):
